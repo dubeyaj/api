@@ -1,0 +1,37 @@
+{
+  "data":
+ [
+  {
+    "id": 1,
+    "AgentName": "Leanne Graham",
+    "Title": "Bret",
+    "Website": "https://cdn.shibe.online/shibes/04be82add971f2b8490b5ec2308d3426e8494ad9.jpg",
+    "isFriendly": true, 
+    "ssn": "1111111111"
+  },
+  {
+    "id": 2,
+    "AgentName": "Ervin Howell",
+    "Title": "Anto",
+    "Website": "https://cdn.shibe.online/shibes/655be60d14f2a0dfb3060dae20c4aad0194b3393.jpg",
+    "isFriendly": false,
+    "ssn": "222222222"
+  },
+  {
+    "id": 3,
+    "AgentName": "Clementine Bauch",
+    "Title": "Samaurai",
+    "Website": "https://cdn.shibe.online/shibes/2d2e282fe2af42373600b819f80b869e1e7b18e9.jpg",
+    "isFriendly": false,
+    "ssn": "333333333"
+  },
+  {
+    "id": 4,
+    "AgentName": "Patricia Lebsack",
+    "Title": "Karin",
+    "Website": "https://cdn.shibe.online/shibes/b2bfced02351f90fffe4c9f67129bb5cc69ef8de.jpg",
+    "isFriendly": false,
+    "ssn": "444444444"
+  }
+ ]
+}
