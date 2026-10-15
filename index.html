@@ -1,14 +1,341 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>React Goals Manager</title>
-  </head>
-  <body class="bg-red-50">
-    <div id="modal-root"></div>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Source-grounded architecture wiki for the legacy JHDevOps/jh_lars LARS UX codebase, with LARS TEST LRSS02 schema comparison.">
+  <title>LARS UX | Codebase Field Guide</title>
+  <style>
+    :root{color-scheme:light;--ink:#18251f;--muted:#61716a;--paper:#f3f2ec;--card:#fffef9;--line:#d8ddd5;--green:#006b45;--lime:#c9ee76;--blue:#426d86;--amber:#b46b1b;--red:#a7443a;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--serif:Georgia,"Times New Roman",serif;--sans:Inter,"Avenir Next",Avenir,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.58 var(--sans)}a{color:var(--green);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:#004c32}code,pre{font-family:var(--mono)}code{font-size:.88em;background:#e9eee6;padding:.1em .35em;border-radius:4px}pre{overflow:auto;background:#1c2923;color:#e9f2e9;padding:1rem;border-radius:10px;font-size:12px;line-height:1.55}header{background:var(--ink);color:#f3f2ec;padding:4.3rem max(1.3rem,calc((100vw - 1180px)/2)) 3rem;position:relative;overflow:hidden}header:after{content:"LARS";position:absolute;right:3vw;bottom:-.45em;color:rgba(255,255,255,.045);font:900 clamp(8rem,22vw,20rem)/1 var(--sans);letter-spacing:-.09em;pointer-events:none}.eyebrow{text-transform:uppercase;letter-spacing:.17em;font-size:11px;color:var(--lime);font-weight:800}.hero{max-width:1180px;margin:auto;position:relative;z-index:1}.hero h1{font:normal clamp(3.1rem,8vw,6.7rem)/.96 var(--serif);letter-spacing:-.045em;margin:.65rem 0 1.3rem;max-width:850px}.hero p{max-width:740px;color:#d2ddd5;font-size:17px}.hero-meta{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem}.pill{border:1px solid #526258;border-radius:99px;padding:.28rem .7rem;font-size:12px;color:#dbe5dc}.status{display:inline-flex;align-items:center;gap:.45rem;padding:.4rem .75rem;border-radius:99px;font-size:12px;font-weight:750;background:#e6f3da;color:#295323}.status:before{content:"";width:8px;height:8px;border-radius:50%;background:#56a530}.layout{max-width:1180px;margin:2rem auto;padding:0 1.3rem;display:grid;grid-template-columns:235px minmax(0,1fr);gap:2rem}.nav{position:sticky;top:1rem;align-self:start;background:#e8e9df;border:1px solid var(--line);border-radius:12px;padding:1rem}.nav strong{font-size:12px;letter-spacing:.1em;text-transform:uppercase}.nav a{display:block;text-decoration:none;color:#43534b;padding:.43rem 0;font-size:13px}.nav a:hover{color:var(--green)}main{min-width:0}.notice{border-left:4px solid var(--amber);background:#fff0d9;padding:1rem 1.1rem;border-radius:0 9px 9px 0;margin-bottom:1.4rem}.notice strong{color:#71410c}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.card,section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.2rem;margin-bottom:1rem}.card h3{margin:.1rem 0 .4rem;font-size:15px}.card p{margin:.25rem 0;color:var(--muted);font-size:13px}.metric{font:normal 2.5rem/1 var(--serif);color:var(--green)}section h2{font:normal 2rem/1.15 var(--serif);letter-spacing:-.025em;margin:0 0 .85rem}section h3{font-size:1rem;margin:1.2rem 0 .35rem}section p{margin:.5rem 0}.small{font-size:13px;color:var(--muted)}.callout{border-left:4px solid var(--green);background:#edf3e8;padding:.85rem 1rem;border-radius:0 8px 8px 0;margin:1rem 0}.warning{border-left-color:var(--red);background:#fbeae6}.tag{display:inline-block;border:1px solid var(--line);border-radius:5px;padding:.08rem .4rem;font:11px var(--mono);color:#506158;margin:.1rem}.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;align-items:stretch;margin:1rem 0}.flow div{border:1px solid #bbcabf;background:#f2f7ec;border-radius:8px;padding:.7rem;font-size:12px}.flow div:not(:last-child):after{content:"→";float:right;color:var(--green);font-weight:bold;margin-right:-1.35rem;position:relative;z-index:2}.flow b{display:block;color:var(--green);font-size:12px;margin-bottom:.25rem}table{border-collapse:collapse;width:100%;font-size:13px;margin:.75rem 0 1rem}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:.55rem .5rem}th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#526159;background:#f3f4ee}tbody tr:hover{background:#f8f8f3}.diagram{overflow-x:auto;border:1px solid var(--line);border-radius:9px;background:#fcfcf7;padding:.8rem}svg{max-width:100%;height:auto;min-width:680px}.svgbox{fill:#edf3e8;stroke:#668570;stroke-width:1.5}.svgdb{fill:#e8f0f4;stroke:#426d86;stroke-width:1.5}.svgext{fill:#fff0d9;stroke:#b46b1b;stroke-width:1.5}.svgtxt{font:13px var(--sans);fill:#18251f}.svgsmall{font:11px var(--sans);fill:#526159}.svgline{stroke:#526b5d;stroke-width:1.7;fill:none;marker-end:url(#arrow)}.source-list li{margin:.35rem 0}.footer{max-width:1180px;padding:0 1.3rem 3rem;margin:auto;color:var(--muted);font-size:12px}.kicker{color:var(--blue);font-weight:800;font-size:11px;letter-spacing:.11em;text-transform:uppercase}.inline-scroll{overflow-x:auto}.check{color:var(--green);font-weight:800}.stop{color:var(--red);font-weight:800}.muted{color:var(--muted)}
+    @media(max-width:850px){.layout{grid-template-columns:1fr}.nav{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 .8rem}.nav strong{grid-column:1/-1}.grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.flow div:not(:last-child):after{content:""}header{padding-top:3rem}.nav{grid-template-columns:1fr 1fr}table{font-size:12px}}
+  </style>
+</head>
+<body>
+  <header id="top">
+    <div class="hero">
+      <div class="eyebrow">Repository field guide · legacy application</div>
+      <h1>LARS UX<br>Codebase Wiki</h1>
+      <p>A source-grounded map of the <code>JHDevOps/jh_lars</code> codebase, its COBOL/AAI request path, Oracle data contracts, representative UX transaction, and operational build layout. Includes live, read-only LARS TEST (<code>LRSS02</code>) schema metadata where the runtime account exposed it.</p>
+      <div class="hero-meta"><span class="pill">Source: <code>main</code> @ <code>b83125c</code></span><span class="pill">Analysis date: 2026-10-14</span><span class="pill">DB target: TEST · LRSS02</span><span class="pill">No source files modified</span></div>
+    </div>
+  </header>
+  <div class="layout">
+    <nav class="nav" aria-label="Wiki sections"><strong>On this page</strong><a href="#summary">At a glance</a><a href="#architecture">Architecture</a><a href="#request">Request lifecycle</a><a href="#security-flow">Security decision path</a><a href="#example">UX flow: affiliations</a><a href="#write-path">Add/remove persistence</a><a href="#database">LARS TEST database</a><a href="#keys">Schema keys</a><a href="#er-model">Entity relationship diagram</a><a href="#build">Build &amp; runtime</a><a href="#tests">QA &amp; testing</a><a href="#risks">Security &amp; caveats</a><a href="#files">File map</a><a href="#references">References</a><a href="#next">Next investigations</a></nav>
+    <main>
+      <div class="notice"><strong>Secret-handling alert:</strong> the checked-in repository contains environment-specific credential files, and the TEST smoke XML contains a password field. Neither value is reproduced here. Restrict access, rotate affected credentials, and treat a public repository/fork as credential exposure.</div>
+      <div class="notice"><strong>Source type:</strong> despite “UI” in the requested scope, this is not a browser-based SPA. <code>LARS_UX</code> is a legacy AAI / Micro Focus COBOL screenset and server-side transaction-service application, with batch COBOL, SQR reports, shell job scripts, Oracle PL/SQL, and shared database copybooks.</div>
+
+      <section id="summary"><div class="kicker">01 · At a glance</div><h2>What is in this repository?</h2>
+        <div class="grid">
+          <div class="card"><div class="metric">5,541</div><h3>Tracked files in checkout</h3><p>Working tree was clean after clone. Code is a broad legacy LARS monorepo, not a UI-only repository.</p></div>
+          <div class="card"><div class="metric">~200</div><h3>UX COBOL transactions</h3><p>The UX transaction makefile explicitly compiles 88 transaction COBOL source units; additional UX main, batch, SQR and database files are separate.</p></div>
+          <div class="card"><div class="metric">LRSS02</div><h3>Runtime database identity</h3><p>Read-only session confirmed against TEST as <code>LARS_ESB</code>. Reporting metadata fallback was needed for schema-wide table stats.</p></div>
+          <div class="card"><div class="metric">0</div><h3>Web frontend packages</h3><p>No conventional JS package manifest, browser UI build, or web app source was found in the repository root or LARS_UX tree.</p></div>
+        </div>
+        <p class="small">Repo: <code>/Users/dubeyaj/Code/jh_lars</code> · Git remote: <code>JHDevOps/jh_lars</code> · Branch/revision: <code>main</code> / <code>b83125c</code> · Worktree: clean.</p>
+      </section>
+
+      <section id="architecture"><div class="kicker">02 · Architecture</div><h2>Server-side UX, shared I/O, Oracle</h2>
+        <p>The visible UX layer is the AAI-hosted client screenset. It passes a large fixed-format communication area to server session controller <code>HSLRSYSC</code>. The controller manages session/database lifetime, validates security and screen access, then dynamically calls a transaction service selected in the screenset data block. UX transaction modules call reusable database component modules; shared COBOL copybooks describe row layouts and fields that correspond to Oracle tables.</p>
+        <div class="diagram" role="img" aria-label="LARS UX request architecture diagram">
+          <svg viewBox="0 0 960 360" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526b5d"/></marker></defs>
+            <rect class="svgbox" x="22" y="40" width="170" height="62" rx="9"/><text class="svgtxt" x="107" y="66" text-anchor="middle">AAI Client</text><text class="svgsmall" x="107" y="86" text-anchor="middle">LARS screensets / UI fields</text>
+            <rect class="svgbox" x="244" y="40" width="190" height="62" rx="9"/><text class="svgtxt" x="339" y="66" text-anchor="middle">HSLRSYSC</text><text class="svgsmall" x="339" y="86" text-anchor="middle">session controller · AAI area</text>
+            <rect class="svgbox" x="489" y="40" width="196" height="62" rx="9"/><text class="svgtxt" x="587" y="66" text-anchor="middle">Security component</text><text class="svgsmall" x="587" y="86" text-anchor="middle">HSSACSSC000 + access DB modules</text>
+            <rect class="svgbox" x="740" y="40" width="195" height="62" rx="9"/><text class="svgtxt" x="837" y="66" text-anchor="middle">Transaction service</text><text class="svgsmall" x="837" y="86" text-anchor="middle">e.g. HSLRRPTS007</text>
+            <path class="svgline" d="M192 71 H244"/><path class="svgline" d="M434 71 H489"/><path class="svgline" d="M685 71 H740"/>
+            <rect class="svgdb" x="95" y="198" width="220" height="70" rx="9"/><text class="svgtxt" x="205" y="225" text-anchor="middle">Database I/O components</text><text class="svgsmall" x="205" y="247" text-anchor="middle">HSLRGBDB* calls · DB state/action</text>
+            <rect class="svgdb" x="370" y="198" width="220" height="70" rx="9"/><text class="svgtxt" x="480" y="225" text-anchor="middle">LARS_SHARED copybooks</text><text class="svgsmall" x="480" y="247" text-anchor="middle">TPARTY, TPERS, TORG_UNIT, licenses...</text>
+            <rect class="svgdb" x="650" y="198" width="220" height="70" rx="9"/><text class="svgtxt" x="760" y="225" text-anchor="middle">Oracle · LARS_OWNER</text><text class="svgsmall" x="760" y="247" text-anchor="middle">TEST service: LRSS02</text>
+            <path class="svgline" d="M837 102 C837 148 205 148 205 198"/><path class="svgline" d="M315 233 H370"/><path class="svgline" d="M590 233 H650"/>
+            <rect class="svgext" x="95" y="300" width="220" height="40" rx="8"/><text class="svgsmall" x="205" y="325" text-anchor="middle">COBOL batch modules + job scripts</text>
+            <rect class="svgext" x="370" y="300" width="220" height="40" rx="8"/><text class="svgsmall" x="480" y="325" text-anchor="middle">SQR reports / generated output</text>
+            <rect class="svgext" x="650" y="300" width="220" height="40" rx="8"/><text class="svgsmall" x="760" y="325" text-anchor="middle">Informatica / external file feeds</text>
+            <path class="svgline" d="M205 268 V300"/><path class="svgline" d="M480 268 V300"/><path class="svgline" d="M760 268 V300"/>
+          </svg>
+        </div>
+        <table><thead><tr><th>Layer</th><th>Evidence / responsibility</th><th>Key locations</th></tr></thead><tbody>
+          <tr><td>UX screenset</td><td>AAI client sends screen data, current screenset and a transaction-service name in a fixed-size comm area.</td><td><code>LARS_UX/inc/*.CPB</code>, screen and request copybooks</td></tr>
+          <tr><td>Session server</td><td>Connects Oracle on first request; authenticates; checks screen commands; routes a request to the chosen COBOL transaction; returns response data.</td><td><code>LARS_UX/cobol/main/HSLRSYSC.CBL</code></td></tr>
+          <tr><td>Security</td><td>LDAP/common security component determines roles, menus, screen permissions, and data-view keys; DB modules retrieve related privileges.</td><td><code>HSSACSSC000.CBL</code> and <code>HSLRGBDB098/099</code> calls</td></tr>
+          <tr><td>Transaction</td><td>Action flags route to paragraph-level transaction logic; service calls I/O modules and updates the request data block.</td><td><code>LARS_UX/cobol/transaction/*.CBL</code></td></tr>
+          <tr><td>DB contract</td><td>Shared copybooks declare Oracle rows and COBOL host structures, including null indicator fields.</td><td><code>LARS_SHARED/inc/*.CPY</code>, database component CPBs</td></tr>
+          <tr><td>Batch/report</td><td>Separate COBOL batch jobs, SQR reports, and shell wrappers operate alongside the interactive UI.</td><td><code>LARS_UX/cobol/batch</code>, <code>LARS_UX/sqr/src</code>, <code>LARS_UX/scripts</code></td></tr>
+        </tbody></table>
+      </section>
+
+      <section id="request"><div class="kicker">03 · Request lifecycle</div><h2>From AAI event to Oracle-backed response</h2>
+        <div class="flow"><div><b>1 · AAI</b>User action populates the data block, process indicator and selected transaction service.</div><div><b>2 · Session</b><code>HSLRSYSC</code> connects on first call; maintains session until <code>LAST</code>/<code>RLBK</code>.</div><div><b>3 · Security</b>Sign-on/role and screen commands are resolved; screen-specific data view is checked.</div><div><b>4 · Dispatch</b>Controller calls <code>WHAT-SERVER-PROGRAM</code> using comm area + LARS global vars.</div></div>
+        <div class="flow"><div><b>5 · Transaction</b>Service routes on request process flag, operates on screen data.</div><div><b>6 · Data access</b>Service invokes <code>HSLRGBDB*</code> DB modules; requests commit/cancel through shared DB state conventions.</div><div><b>7 · Oracle</b>DB module executes table/procedure logic with LARS_OWNER schema contracts.</div><div><b>8 · Return</b>Service writes response into data block; controller copies to response area and AAI callback.</div></div>
+        <div class="callout"><strong>Fixed-format boundary:</strong> <code>AAI-COMM-AREA</code>, <code>REQUEST</code>, and <code>RESPONSE</code> are each 32,760-character fields. <code>HSLRSYSC</code> copies the AAI payload into <code>DATA-BLOCK</code> and back; transaction modules commonly have an unload → route → load structure.</div>
+        <h3>Controller sequence and transaction boundary</h3>
+        <div class="diagram" role="img" aria-label="Detailed HSLRSYSC request and response sequence">
+          <svg viewBox="0 0 1020 480" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526b5d"/></marker></defs>
+            <text class="svgsmall" x="145" y="25" text-anchor="middle">AAI client</text><text class="svgsmall" x="355" y="25" text-anchor="middle">HSLRSYSC</text><text class="svgsmall" x="575" y="25" text-anchor="middle">HSSACSSC000</text><text class="svgsmall" x="820" y="25" text-anchor="middle">Txn / DB components</text>
+            <path d="M145 35 V455 M355 35 V455 M575 35 V455 M820 35 V455" stroke="#b7c0b8" stroke-dasharray="5 5"/>
+            <path class="svgline" marker-end="url(#arrow2)" d="M145 62 H355"/><text class="svgsmall" x="250" y="53" text-anchor="middle">request data block</text>
+            <rect x="278" y="76" width="154" height="43" rx="6" fill="#fff0d9" stroke="#b46b1b"/><text class="svgsmall" x="355" y="94" text-anchor="middle">FIRST-TIME?</text><text class="svgsmall" x="355" y="108" text-anchor="middle">open log + connect DB</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M355 142 H820"/><text class="svgsmall" x="585" y="134" text-anchor="middle">HSLRGBDB001: DB-CONNECT</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M355 178 H575"/><text class="svgsmall" x="465" y="170" text-anchor="middle">user/app/role/screenset</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M575 195 H820"/><text class="svgsmall" x="695" y="188" text-anchor="middle">DB098 org scope + DB099 function/screen access</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M820 224 H575"/><text class="svgsmall" x="695" y="217" text-anchor="middle">role, menus, screen commands, data-view keys</text>
+            <rect x="278" y="245" width="154" height="42" rx="6" fill="#edf3e8" stroke="#668570"/><text class="svgsmall" x="355" y="263" text-anchor="middle">authorized?</text><text class="svgsmall" x="355" y="277" text-anchor="middle">route / deny</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M355 308 H820"/><text class="svgsmall" x="585" y="300" text-anchor="middle">WHAT-SERVER-PROGRAM + comm area</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M820 327 H575"/><text class="svgsmall" x="695" y="320" text-anchor="middle">transaction response area</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M575 354 H355"/><text class="svgsmall" x="465" y="347" text-anchor="middle">updated role/screen permissions</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M355 388 H145"/><text class="svgsmall" x="250" y="381" text-anchor="middle">DATA-BLOCK → RESPONSE</text>
+            <path class="svgline" marker-end="url(#arrow2)" d="M355 420 H145"/><text class="svgsmall" x="250" y="414" text-anchor="middle">AIBSTS00: NEXT callback</text>
+          </svg>
+        </div>
+        <p class="small">Sequence is grounded in <code>HSLRSYSC.CBL</code>: the non-first-request branch refreshes security, calls <code>6000-CANCEL-TXN</code> for closed screens, dispatches only when <code>WHAT-SERVER-PROGRAM</code> is nonblank, copies data to response, then calls the AAI <code>AIBSTS00</code> callback. The first request instead opens the log and connects before security. The diagram abstracts error branches and optional transaction tracing for legibility.</p>
+      </section>
+
+      <section id="security-flow"><div class="kicker">04 · Authorization path</div><h2>Security is a server-side request gate</h2>
+        <p>The session controller passes app ID, user ID, role ID, current screenset, saved role choices, and sign-on state to <code>HSSACSSC000</code>. The component distinguishes initial sign-on, subsequent role choice, screenset change, and AAI service cancellation. On successful resolution, the controller retains role/menu/screen privileges and converts returned data-view keys into “view all” or scoped representative/organization filters used by later requests.</p>
+        <div class="flow"><div><b>Initial sign-on</b>No sign-on flag, app/user supplied, role missing, no role choice yet.</div><div><b>Choose role</b>When more than one role is returned, the next request includes selected role index.</div><div><b>Screenset change</b>Authenticated user + selected role; resolve permissions for new screen.</div><div><b>Cancel / close</b>Empty identity fields on signed-in path trigger security service cleanup.</div></div>
+        <table><thead><tr><th>Returned control</th><th>Controller use</th><th>Implementation evidence</th></tr></thead><tbody>
+          <tr><td>Sign-on flag and role table</td><td>Maintains the selected role and handles multi-role prompt/continuation.</td><td><code>HSLRSYSC</code> security call and copy-back.</td></tr>
+          <tr><td>Menu privilege / screen access</td><td>Provides menu availability and which screens can be selected.</td><td><code>HSSACSSC000</code> result fields copied to global data block.</td></tr>
+          <tr><td>Screen command privilege</td><td>Controls screen commands/functions for the current screenset.</td><td><code>HSSACSSC000</code> invokes common DB099 function access path.</td></tr>
+          <tr><td>Data-view keys</td><td>Empty key = all reps/orgs; nonempty key = scoped rep/org mode and lookup key.</td><td><code>HSLRSYSC</code> reads dataview key slots 1 and 3.</td></tr>
+          <tr><td>Security failure</td><td>Sets system error information; failed initial sign-on sets AAI function to <code>LAST</code>.</td><td><code>HSLRSYSC</code> security result branch.</td></tr>
+        </tbody></table>
+        <div class="callout warning"><strong>Authorization vs data filtering:</strong> screen/menu permission and data-view scope are separate controls. A transaction may be callable at the screen level but still receive a restricted rep/org scope; investigate both security result and SQL predicates when explaining missing rows.</div>
+      </section>
+
+      <section id="example"><div class="kicker">04 · Representative UX path</div><h2>Add/remove reporting affiliation</h2>
+        <p><code>HSLRRPTS007</code> is a concrete, traceable example tying a user-visible screen action to LARS organization relationships. Its comments describe adding/removing reporting affiliations for a representative, and the makefile explicitly compiles this module.</p>
+        <table><thead><tr><th>Step</th><th>Code behavior</th><th>Database contract</th></tr></thead><tbody>
+          <tr><td>Screen initialization</td><td><code>LOAD</code> clears local screen arrays, loads representative keys and asks DB component <code>HSLRGBDB013</code> for associated organizations.</td><td>Representative identity and org type lookup; data reaches UI lists.</td></tr>
+          <tr><td>Action dispatch</td><td><code>WS-PROCESS-IND</code> routes to <code>LOAD</code>, <code>SHOWREP</code>, <code>ADDREP</code>, or <code>DELREP</code>; unexpected values become fatal application errors.</td><td>Action semantics are inside COBOL, distinct from frontend rendering.</td></tr>
+          <tr><td>Affiliation operations</td><td>Transaction builds request fields and calls <code>HSLRORDB026</code> with relationship/entity identifiers and create metadata.</td><td><code>TPERS_ORG_RELTN</code> contains <code>PERS_ID_NO/SEQ</code> and <code>ORG_UNIT_ID_NO/SEQ</code>; updates use row identifiers.</td></tr>
+          <tr><td>Response</td><td>Messages and list values are written back into the data block; the AAI client redisplays resulting state.</td><td>Oracle errors are translated through shared message/error handling.</td></tr>
+        </tbody></table>
+        <div class="callout"><strong>Important distinction:</strong> this is a reporting-affiliation workflow and should not automatically be equated with every principal/firm affiliation feature elsewhere in LARS. Follow the exact relationship type and DB component implementation for a specific business question.</div>
+        <p class="small">Primary source: <code>LARS_UX/cobol/transaction/HSLRRPTS007.CBL</code> (routing around lines 246–280; load around 333–364; DB component declarations around 170–195; add/remove DB calls around 970–1075).</p>
+      </section>
+
+      <section id="write-path"><div class="kicker">06 · Persistence trace</div><h2>Add and remove are different history operations</h2>
+        <p>The UX request is routed through <code>HSLRRPTS007</code>, but Oracle SQL lives in shared DB component <code>LARS_SHARED/cobol/HSLRORDB026.PCO</code>. That component describes its role as I/O for <code>TENT_ASOC</code>; it also writes change-log entries through <code>HSLRCSDB004</code>. The visible association is therefore an entity association record, not a direct insert into <code>TPERS_ORG_RELTN</code>.</p>
+        <div class="diagram" role="img" aria-label="Reporting affiliation add and remove persistence sequence">
+          <svg viewBox="0 0 1020 320" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="arrow3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526b5d"/></marker></defs>
+            <text class="svgtxt" x="20" y="35">ADD</text>
+            <rect class="svgbox" x="95" y="15" width="200" height="55" rx="8"/><text class="svgsmall" x="195" y="38" text-anchor="middle">HSLRRPTS007</text><text class="svgsmall" x="195" y="55" text-anchor="middle">validate no active duplicate</text>
+            <rect class="svgdb" x="350" y="15" width="220" height="55" rx="8"/><text class="svgsmall" x="460" y="38" text-anchor="middle">HSLRORDB026</text><text class="svgsmall" x="460" y="55" text-anchor="middle">sequence + active insert</text>
+            <rect class="svgdb" x="625" y="15" width="175" height="55" rx="8"/><text class="svgsmall" x="712" y="38" text-anchor="middle">TENT_ASOC</text><text class="svgsmall" x="712" y="55" text-anchor="middle">EFF=SYSDATE, EXPR=NULL</text>
+            <rect class="svgext" x="850" y="15" width="150" height="55" rx="8"/><text class="svgsmall" x="925" y="38" text-anchor="middle">HSLRCSDB004</text><text class="svgsmall" x="925" y="55" text-anchor="middle">change log</text>
+            <path class="svgline" marker-end="url(#arrow3)" d="M295 43 H350"/><path class="svgline" marker-end="url(#arrow3)" d="M570 43 H625"/><path class="svgline" marker-end="url(#arrow3)" d="M800 43 H850"/>
+            <text class="svgtxt" x="20" y="135">REMOVE</text>
+            <rect class="svgbox" x="95" y="112" width="200" height="66" rx="8"/><text class="svgsmall" x="195" y="135" text-anchor="middle">HSLRRPTS007</text><text class="svgsmall" x="195" y="153" text-anchor="middle">pass association ID + seq</text>
+            <rect class="svgdb" x="350" y="112" width="220" height="66" rx="8"/><text class="svgsmall" x="460" y="135" text-anchor="middle">HSLRORDB026</text><text class="svgsmall" x="460" y="153" text-anchor="middle">audit old row + insert ended row</text>
+            <rect class="svgdb" x="625" y="102" width="175" height="82" rx="8"/><text class="svgsmall" x="712" y="124" text-anchor="middle">TENT_ASOC (old)</text><text class="svgsmall" x="712" y="143" text-anchor="middle">LAST_UPD_BY_DTM = now</text><text class="svgsmall" x="712" y="160" text-anchor="middle">current marker cleared</text>
+            <rect class="svgdb" x="625" y="207" width="175" height="82" rx="8"/><text class="svgsmall" x="712" y="229" text-anchor="middle">TENT_ASOC (new)</text><text class="svgsmall" x="712" y="248" text-anchor="middle">same eff date, expr = now</text><text class="svgsmall" x="712" y="265" text-anchor="middle">preserves ended state</text>
+            <rect class="svgext" x="850" y="112" width="150" height="66" rx="8"/><text class="svgsmall" x="925" y="135" text-anchor="middle">HSLRCSDB004</text><text class="svgsmall" x="925" y="153" text-anchor="middle">remove audit entries</text>
+            <path class="svgline" marker-end="url(#arrow3)" d="M295 145 H350"/><path class="svgline" marker-end="url(#arrow3)" d="M570 145 H625"/><path class="svgline" marker-end="url(#arrow3)" d="M570 155 C600 155 600 247 625 247"/><path class="svgline" marker-end="url(#arrow3)" d="M800 145 H850"/>
+            <rect x="350" y="225" width="220" height="54" rx="8" fill="#fff0d9" stroke="#b46b1b"/><text class="svgsmall" x="460" y="247" text-anchor="middle">HSLRRPTS007</text><text class="svgsmall" x="460" y="264" text-anchor="middle">commit if no error; else rollback</text>
+            <path class="svgline" marker-end="url(#arrow3)" d="M350 178 C330 205 330 252 350 252"/><text class="svgsmall" x="315" y="220" text-anchor="middle">DB-COMMIT / DB-ROLLBACK</text>
+          </svg>
+        </div>
+        <h3>Detailed state change</h3>
+        <table><thead><tr><th>Phase</th><th>Operation</th><th>Effect</th><th>Source anchor</th></tr></thead><tbody>
+          <tr><td>Add validation</td><td>SELECT <code>TENT_ASOC</code> for same relationship endpoint, organization, reporting relation; require expression date NULL and last-update timestamp NULL.</td><td>Prevents another current association matching the exact criteria.</td><td><code>HSLRORDB026.PCO</code> ~711–749</td></tr>
+          <tr><td>Add</td><td>Get <code>ENT_ASOC_ID_NO_SEQ.NEXTVAL</code>; INSERT TENT_ASOC with relation IDs/type, effective date <code>SYSDATE</code>, expression date NULL, creator audit columns.</td><td>Creates a current row.</td><td><code>HSLRORDB026.PCO</code> ~818–963</td></tr>
+          <tr><td>Add audit</td><td>Write organization-side and rep-side change-log entries through <code>HSLRCSDB004</code>.</td><td>Records the user-visible “Add Reporting Affiliation” action against both sides.</td><td><code>HSLRORDB026.PCO</code> ~972–1073</td></tr>
+          <tr><td>Remove selection</td><td>SELECT the current TENT_ASOC row by association ID and relationship/entity keys.</td><td>Retrieves relation identifiers and original effective date.</td><td><code>HSLRORDB026.PCO</code> ~1121–1173</td></tr>
+          <tr><td>Remove old version</td><td>UPDATE the original current row’s <code>LAST_UPD_BY_PRCS_CD</code>, <code>LAST_UPD_BY_DTM</code>, and <code>LAST_UPD_BY_NM</code>.</td><td>Preserves the old row as history; it no longer matches current-row reads.</td><td><code>HSLRORDB026.PCO</code> ~1181–1212</td></tr>
+          <tr><td>Record ended version</td><td>INSERT another TENT_ASOC row with same original effective date and <code>ENT_ASOC_EXPR_DT = SYSDATE</code>.</td><td>Stores the terminated/end-date representation as a separate row; not a hard delete.</td><td><code>HSLRORDB026.PCO</code> ~1083–1113 and 1218–1273</td></tr>
+          <tr><td>Remove audit</td><td>Write organization-side and rep-side “Remove Reporting Affiliation” change-log values.</td><td>Provides operation trace after persistence steps.</td><td><code>HSLRORDB026.PCO</code> ~1281–1368</td></tr>
+          <tr><td>Commit boundary</td><td><code>HSLRRPTS007</code> calls generic DB component with DB-COMMIT on success; DB-ROLLBACK if application error.</td><td>The data component itself does not show an explicit commit in these paragraphs; caller controls the commit/rollback via shared DB component.</td><td><code>HSLRRPTS007.CBL</code> ~1086–1097; <code>HSLRGBDB001.PCO</code> ~149–168, ~278–310</td></tr>
+        </tbody></table>
+        <div class="callout"><strong>Evidence correction:</strong> reporting affiliation persistence is in <code>TENT_ASOC</code>. <code>TPERS_ORG_RELTN</code> identifies the representative-to-org relationship being referenced, but the reporting association rows are separate <code>TENT_ASOC</code> rows. The add/remove flow must not be described as updating the person’s primary firm relationship.</div>
+      </section>
+
+      <section id="database"><div class="kicker">07 · LARS TEST database</div><h2>Static contract + live TEST catalog</h2>
+        <div class="status">Read-only TEST session verified: LARS_ESB · LRSS02 · clbs37617</div>
+        <p>The repo’s <code>LARS_SHARED/inc/*.CPY</code> declarations were compared with read-only Oracle metadata. TEST service identity was confirmed using <code>SYS_CONTEXT</code>; broad table statistics came from the reporting account only after the application account’s object visibility proved limited. No DML or source database scripts were run.</p>
+        <table><thead><tr><th>Data area</th><th>Primary entities and join keys</th><th>Why UX cares</th><th>LRSS02 stats (optimizer)</th></tr></thead><tbody>
+          <tr><td>Party/person/org</td><td><code>TPARTY(PARTY_ID_NO, PARTY_ID_SEQ_NO)</code> → <code>TPERS</code> or <code>TORG_UNIT</code>; both child rows carry party ID + sequence.</td><td>Identity searches, demographic screens, organization detail.</td><td>TPARTY 930,536 · TPERS 2,217,765 · TORG_UNIT 104,056</td></tr>
+          <tr><td>Person→organization</td><td><code>TPERS_ORG_RELTN(PERS_ID_NO, PERS_ID_SEQ_NO, ORG_UNIT_ID_NO, ORG_UNIT_ID_SEQ_NO)</code>; relationship type is <code>PERS_ORG_UNIT_RELTN_TYP_CD</code>.</td><td>Affiliation/reporting-organization UX.</td><td>1,983,116</td></tr>
+          <tr><td>Insurance licenses</td><td><code>TINS_LIC(INS_LIC_ID_NO, INS_LIC_ID_SEQ_NO)</code>; polymorphic person/org ID + party type. LOAs join via both license ID columns.</td><td>License details and license-line maintenance.</td><td>TINS_LIC 3,191,882 · LOA 15,438,842</td></tr>
+          <tr><td>Appointments</td><td><code>TAPNT(APNT_ID_NO, APNT_ID_SEQ_NO)</code>; appointment LOAs join with both appointment ID columns.</td><td>Appointment inquiry, add/update, termination and renewal flows.</td><td>TAPNT 3,649,233 · LOA 20,395,516</td></tr>
+          <tr><td>Agency producer code</td><td><code>TAGY_PRDCR_CD</code> stores <code>CODENO</code>, <code>SELLERID</code>, <code>FED_TAX_ID_NO</code>, and <code>PARTY_TYP_CD</code>.</td><td>Code-number / sales affiliation inquiry.</td><td>582,067</td></tr>
+          <tr><td>Process/event history</td><td><code>TCASE_PRCS</code> keyed by process ID + sequence; <code>TCASE_EVENT</code> links with process ID + sequence.</td><td>Activity/process history and event detail screens.</td><td>TCASE_PRCS 25,324,600 · TCASE_EVENT 61,434,625</td></tr>
+        </tbody></table>
+        <p class="small">Counts are <code>ALL_TABLES.NUM_ROWS</code> optimizer statistics, not exact transactional counts. Analyze dates range from 2024-08 to 2026-10; the stats are scale indicators only. LARS_ESB can read TPARTY and TAGY_PRDCR_CD in TEST but cannot enumerate most other LARS_OWNER objects; table inventory and stats below used JHDIGITALENGINEERING after the permission-limited result was confirmed.</p>
+      </section>
+
+      <section id="keys"><div class="kicker">08 · Schema keys</div><h2>Keep both ID and sequence</h2>
+        <p>The copybooks and live TEST dictionary agree on the dual-key design: person, organization, party, license, appointment, and process entities include an ID number plus a sequence number. Association joins must carry both parts wherever defined; an ID-only join can duplicate or misidentify historical versions.</p>
+        <pre>TPARTY (PARTY_ID_NO, PARTY_ID_SEQ_NO)
+  ├─ TPERS (PARTY_ID_NO, PARTY_ID_SEQ_NO)
+  │    └─ TPERS_ORG_RELTN (PERS_ID_NO, PERS_ID_SEQ_NO,
+  │                        ORG_UNIT_ID_NO, ORG_UNIT_ID_SEQ_NO)
+  └─ TORG_UNIT (PARTY_ID_NO, PARTY_ID_SEQ_NO)
+
+TINS_LIC (INS_LIC_ID_NO, INS_LIC_ID_SEQ_NO)
+  └─ TINS_LIC_LN_OF_AUTH (INS_LIC_ID_NO, INS_LIC_ID_SEQ_NO)
+
+TAPNT (APNT_ID_NO, APNT_ID_SEQ_NO)
+  └─ TAPNT_LN_OF_AUTH (APNT_ID_NO, APNT_ID_SEQ_NO)
+
+TCASE_PRCS (CASE_PRCS_ID_NO, CASE_PRCS_ID_SEQ_NO)
+  └─ TCASE_EVENT (CASE_PRCS_ID_NO, CASE_PRCS_ID_SEQ_NO)</pre>
+        <table><thead><tr><th>Join use</th><th>Required predicate fields</th><th>Verification</th></tr></thead><tbody>
+          <tr><td>TPARTY → TPERS</td><td><code>party_id_no</code> + <code>party_id_seq_no</code></td><td>Both columns exist in LRSS02, NUMBER; party pair is non-null in TPARTY.</td></tr>
+          <tr><td>TPARTY → TORG_UNIT</td><td><code>party_id_no</code> + <code>party_id_seq_no</code></td><td>Both columns exist in LRSS02, NUMBER; nullable on TORG_UNIT table definition.</td></tr>
+          <tr><td>TPERS → TPERS_ORG_RELTN</td><td><code>pers_id_no</code> + <code>pers_id_seq_no</code></td><td>Both relationship columns are non-null; org side also has ID+sequence.</td></tr>
+          <tr><td>License → license LOA</td><td><code>ins_lic_id_no</code> + <code>ins_lic_id_seq_no</code></td><td>Both columns present; nullable in LOA.</td></tr>
+          <tr><td>Appointment → appointment LOA</td><td><code>apnt_id_no</code> + <code>apnt_id_seq_no</code></td><td>Both columns present in LRSS02.</td></tr>
+        </tbody></table>
+        <div class="callout warning"><strong>Current-row convention:</strong> many LARS tables are append/history oriented; <code>LAST_UPD_BY_DTM IS NULL</code> commonly indicates the current row. Confirm per table/query path; do not assume every screen or query uses that predicate.</div>
+      </section>
+
+      <section id="er-model"><div class="kicker">09 · Entity relationship view</div><h2>License and appointment graph</h2>
+        <p>This diagram separates strong schema-backed relationships from polymorphic identity links. Each edge marked with a key pair is a two-column join. TENT_ASOC reporting-association links to a relationship row and a selected org entity; its specific checked-in copybook exposes both ID and sequence fields.</p>
+        <div class="diagram" role="img" aria-label="LARS core Oracle entity relationship diagram">
+          <svg viewBox="0 0 1000 570" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="arrow4" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526b5d"/></marker></defs>
+            <rect class="svgdb" x="380" y="20" width="240" height="65" rx="9"/><text class="svgtxt" x="500" y="44" text-anchor="middle">TPARTY</text><text class="svgsmall" x="500" y="64" text-anchor="middle">PK: PARTY_ID_NO + PARTY_ID_SEQ_NO</text>
+            <rect class="svgbox" x="100" y="140" width="235" height="65" rx="9"/><text class="svgtxt" x="217" y="164" text-anchor="middle">TPERS</text><text class="svgsmall" x="217" y="184" text-anchor="middle">PK: PERS_ID_NO + PERS_ID_SEQ_NO</text>
+            <rect class="svgbox" x="665" y="140" width="235" height="65" rx="9"/><text class="svgtxt" x="782" y="164" text-anchor="middle">TORG_UNIT</text><text class="svgsmall" x="782" y="184" text-anchor="middle">PK: ORG_UNIT_ID_NO + SEQ_NO</text>
+            <path class="svgline" marker-end="url(#arrow4)" d="M430 85 L285 140"/><text class="svgsmall" x="333" y="105">party key pair</text><path class="svgline" marker-end="url(#arrow4)" d="M570 85 L715 140"/><text class="svgsmall" x="665" y="105">party key pair</text>
+            <rect class="svgdb" x="365" y="255" width="270" height="74" rx="9"/><text class="svgtxt" x="500" y="280" text-anchor="middle">TPERS_ORG_RELTN</text><text class="svgsmall" x="500" y="300" text-anchor="middle">person key pair + org unit key pair</text><text class="svgsmall" x="500" y="317" text-anchor="middle">relation type + effective/end dates</text>
+            <path class="svgline" marker-end="url(#arrow4)" d="M270 205 L420 255"/><path class="svgline" marker-end="url(#arrow4)" d="M730 205 L580 255"/>
+            <rect class="svgbox" x="90" y="385" width="220" height="70" rx="9"/><text class="svgtxt" x="200" y="410" text-anchor="middle">TINS_LIC</text><text class="svgsmall" x="200" y="431" text-anchor="middle">ID_NO + ID_SEQ_NO</text><text class="svgsmall" x="200" y="447" text-anchor="middle">PERS_ORG_ID pair + PARTY_TYP_CD</text>
+            <rect class="svgbox" x="350" y="385" width="220" height="70" rx="9"/><text class="svgtxt" x="460" y="410" text-anchor="middle">TINS_LIC_LN_OF_AUTH</text><text class="svgsmall" x="460" y="432" text-anchor="middle">INS_LIC_ID pair → license</text>
+            <path class="svgline" marker-end="url(#arrow4)" d="M310 420 H350"/><path d="M350 438 H310" stroke="#526b5d" stroke-width="1.7" marker-end="url(#arrow4)" fill="none"/>
+            <path class="svgline" marker-end="url(#arrow4)" d="M217 205 C217 300 200 300 200 385"/><text class="svgsmall" x="104" y="310">polymorphic person/org key</text>
+            <rect class="svgbox" x="660" y="385" width="220" height="70" rx="9"/><text class="svgtxt" x="770" y="410" text-anchor="middle">TAPNT</text><text class="svgsmall" x="770" y="432" text-anchor="middle">ID_NO + ID_SEQ_NO</text><text class="svgsmall" x="770" y="447" text-anchor="middle">PERS_ORG_ID pair + PARTY_TYP_CD</text>
+            <rect class="svgbox" x="660" y="485" width="220" height="65" rx="9"/><text class="svgtxt" x="770" y="510" text-anchor="middle">TAPNT_LN_OF_AUTH</text><text class="svgsmall" x="770" y="531" text-anchor="middle">APNT_ID pair → appointment</text>
+            <path class="svgline" marker-end="url(#arrow4)" d="M770 455 V485"/><path d="M790 485 V455" stroke="#526b5d" stroke-width="1.7" marker-end="url(#arrow4)" fill="none"/>
+            <rect class="svgext" x="370" y="485" width="240" height="65" rx="9"/><text class="svgtxt" x="490" y="510" text-anchor="middle">TENT_ASOC</text><text class="svgsmall" x="490" y="531" text-anchor="middle">ENT_ASOC_ID + seq; relation / entity IDs</text>
+            <path class="svgline" marker-end="url(#arrow4)" d="M470 329 V485"/><path class="svgline" marker-end="url(#arrow4)" d="M590 290 C840 290 840 330 840 385"/>
+            <rect class="svgext" x="35" y="500" width="270" height="45" rx="8"/><text class="svgsmall" x="170" y="518" text-anchor="middle">Dotted semantic link:</text><text class="svgsmall" x="170" y="534" text-anchor="middle">TAGY_PRDCR_CD maps code/TIN/party type</text>
+          </svg>
+        </div>
+        <table><thead><tr><th>Edge</th><th>Join fields</th><th>Evidence level</th></tr></thead><tbody>
+          <tr><td>TPARTY → TPERS / TORG_UNIT</td><td>Party ID + party sequence</td><td>Copybooks + live LRSS02 dictionary.</td></tr>
+          <tr><td>TPERS → TPERS_ORG_RELTN</td><td>Person ID + person sequence</td><td>Copybook declares both key fields; LRSS02 confirms columns.</td></tr>
+          <tr><td>TORG_UNIT → TPERS_ORG_RELTN</td><td>Org unit ID + org unit sequence</td><td>Copybook declares both key fields; LRSS02 confirms columns.</td></tr>
+          <tr><td>TINS_LIC → license LOA</td><td>Insurance license ID + sequence</td><td>Copybook and LRSS02 dictionary; LOA is child data.</td></tr>
+          <tr><td>TAPNT → appointment LOA</td><td>Appointment ID + sequence</td><td>Copybook and LRSS02 dictionary; LOA is child data.</td></tr>
+          <tr><td>TENT_ASOC → relationship / entity</td><td>Relation entity code+ID, entity code+ID; new association record ID+sequence</td><td>Reporting flow uses the relation ID and entity ID; current UX call path names organization relation types.</td></tr>
+        </tbody></table>
+        <p class="small">The SVG is a navigational model, not an Oracle-generated foreign-key graph. Several domain links are polymorphic and are not necessarily declared FK constraints. Distinguish schema columns from logical joins used by the application.</p>
+      </section>
+
+      <section id="build"><div class="kicker">10 · Build &amp; runtime</div><h2>Solaris-era toolchain assumptions</h2>
+        <p>Top-level <code>makefile</code> intentionally rejects a single root build. <code>lars.mk</code> composes four application-level targets, but each target chooses a different SQR backend and external compiler/runtime libraries.</p>
+        <table><thead><tr><th>Target</th><th>Sources / output</th><th>Build dependencies evidenced</th></tr></thead><tbody>
+          <tr><td><code>LARS_SHARED</code></td><td>Shared COBOL subproject and common include contract.</td><td>Micro Focus COBOL; shared include path used by UX, integration and conversion.</td></tr>
+          <tr><td><code>LARS_UX</code></td><td>COBOL main, interactive transaction services, batch jobs; Oracle SQR.</td><td>Solaris-style paths, Server Express 5.1, Oracle 11g client/precompiler, AAI runtime, SQR 8.31.</td></tr>
+          <tr><td><code>LARS_INT</code></td><td>Integration COBOL and feeds.</td><td>Additional integration-specific source and build settings.</td></tr>
+          <tr><td><code>LARS_CONV</code></td><td>Conversion COBOL, Sybase SQR and conversion database scripts.</td><td>Sybase client/SQR selection differs from UX Oracle SQR.</td></tr>
+        </tbody></table>
+        <div class="callout"><strong>Do not run root <code>make LARS</code> as a workstation check.</strong> The tracked makefile explicitly exits with “not possible” at this level. The declared compiler paths point to absent enterprise Solaris build infrastructure, so no local compile was attempted here.</div>
+        <h3>Build graph (from checked-in makefiles)</h3>
+        <pre>lars.mk
+├─ LARS_SHARED: shared COBOL contracts
+├─ LARS_UX
+│  ├─ COBOL main: HSSACSSC000, HSLRSYSC
+│  ├─ COBOL transactions: interactive service programs
+│  ├─ COBOL batch: PCO precompile + COBOL compile
+│  └─ SQR reports: Oracle SQR compiler
+├─ LARS_INT
+└─ LARS_CONV: Sybase SQR selection
+
+Interactive runtime: AAI session → HSLRSYSC → security + UX transaction → DB I/O → Oracle</pre>
+      </section>
+
+      <section id="tests"><div class="kicker">11 · QA &amp; testing</div><h2>QA scaffold exists; assertions are external</h2>
+        <ul><li><code>QA/SmokeTest</code> contains TEST and STAGE automation-tool XML configurations referencing an ALM test set.</li><li><code>QA/SanityTest</code> and <code>QA/RegressionTest</code> contain only <code>.gitignore</code> entries in this checkout; no executable test cases were found there.</li><li>The smoke XML includes embedded authentication data. Do not open/copy/quote it into docs; rotate if it is an active credential.</li><li>COBOL/SQR make targets produce compiler logs and generated output; there is no modern local unit-test runner at repository root.</li></ul>
+        <p class="small">Inventory at revision <code>b83125c</code>: 88 interactive UX transaction CBLs listed by the makefile, 12 main COBOL programs, 28 batch COBOL/PCO entries, 66 SQR sources, 30 UX SQL files, 50 DDL files, and 102 UX copybooks/includes.</p>
+      </section>
+
+      <section id="risks"><div class="kicker">12 · Security &amp; caveats</div><h2>Items to handle before deeper work</h2>
+        <table><thead><tr><th>Finding</th><th>Evidence</th><th>Action</th></tr></thead><tbody>
+          <tr><td class="stop">Tracked credential material</td><td>Git index contains 11 <code>.LARS_DB_PWD_*</code> files, additional FTP password files, a system DB password file, and smoke XML credentials.</td><td>Security incident/credential rotation; remove from source control and history per security procedures. Do not use the legacy password to connect or copy it elsewhere.</td></tr>
+          <tr><td>Legacy OS/build coupling</td><td>Makefiles hard-code <code>/DEV_CODE/svn</code>, Solaris tool paths, Oracle/Sybase SQR tool roots and Micro Focus compiler locations.</td><td>Use the established enterprise build host/process; document actual current build environment with maintainers.</td></tr>
+          <tr><td>Runtime and DB name drift</td><td>Repository deployment scripts refer to LRSS02 (often STESTB label); current Producer 2.0 TEST/UAT wiring also confirms LRSS02 but host/runtime config varies.</td><td>Use environment-specific runtime config rather than inferring the deployed target from a source makefile.</td></tr>
+          <tr><td>Stats versus live state</td><td>Oracle <code>ALL_TABLES.NUM_ROWS</code> is optimizer metadata, with different analysis dates.</td><td>Use as rough scale only; do not treat as exact count or evidence that a specific person/firm exists.</td></tr>
+          <tr><td>Broad mapping not fully explored</td><td>Many legacy screens, database modules, SQL packages, reports and batch flows remain untraced.</td><td>Follow up by business domain and exact screenset/service mapping rather than claim every UX path is documented.</td></tr>
+        </tbody></table>
+        <div class="callout warning"><strong>Secret values intentionally omitted:</strong> repo-source and shell output from this analysis are not a safe way to manage the credentials found in tracked config. No secrets are included in this wiki.</div>
+      </section>
+
+      <section id="files"><div class="kicker">13 · File map</div><h2>Start reading here</h2>
+        <ul class="source-list">
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/makefile"><code>makefile</code></a> — root build guard and environment assumptions.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/lars.mk"><code>lars.mk</code></a> — aggregate component targets; includes shared, UX, integration and conversion makefiles.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/lars_ux.mk"><code>LARS_UX/lars_ux.mk</code></a> — UX build composition: COBOL + SQR.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/main/HSLRSYSC.CBL#L276-L318"><code>HSLRSYSC.CBL:276-318</code></a> — first-request connect/security branch, subsequent request security refresh, dispatch condition, response and callback.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/main/HSLRSYSC.CBL#L364-L439"><code>HSLRSYSC.CBL:364-439</code></a> — HSLRGBDB001 connect/disconnect/timestamp actions.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/main/HSLRSYSC.CBL#L448-L588"><code>HSLRSYSC.CBL:448-588</code></a> — security inputs, returned privileges, dataview scope and failure handling.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/main/HSLRSYSC.CBL#L611-L637"><code>HSLRSYSC.CBL:611-637</code></a> — dynamic transaction-service call through WHAT-SERVER-PROGRAM.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/main/HSSACSSC000.CBL#L20-L27"><code>HSSACSSC000.CBL:20-27</code></a> — security component contract.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/main/HSSACSSC000.CBL#L166-L238"><code>HSSACSSC000.CBL:166-238</code></a> — initial sign-on, role selection, screenset privilege refresh, and cancel routing.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/transaction/HSLRRPTS007.CBL#L246-L280"><code>HSLRRPTS007.CBL:246-280</code></a> — reporting-affiliation screen action dispatch.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/transaction/HSLRRPTS007.CBL#L333-L364"><code>HSLRRPTS007.CBL:333-364</code></a> — screen initialization and representative identity formatting.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/transaction/HSLRRPTS007.CBL#L429-L434"><code>HSLRRPTS007.CBL:429-434</code></a> — association lookup delegated to HSLRORDB013.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/transaction/HSLRRPTS007.CBL#L974-L1021"><code>HSLRRPTS007.CBL:974-1021</code></a> — ADD action arguments, relation type, process/user audit and transaction completion.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/transaction/HSLRRPTS007.CBL#L1027-L1097"><code>HSLRRPTS007.CBL:1027-1097</code></a> — DEL action arguments, component call and commit/rollback selection.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/cobol/HSLRORDB026.PCO#L185-L247"><code>HSLRORDB026.PCO:185-247</code></a> — active reporting association cursors and current-row filters.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/cobol/HSLRORDB026.PCO#L398-L449"><code>HSLRORDB026.PCO:398-449</code></a> — I/O component action switch and duplicate validation before add.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/cobol/HSLRORDB026.PCO#L711-L749"><code>HSLRORDB026.PCO:711-749</code></a> — duplicate active reporting association check.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/cobol/HSLRORDB026.PCO#L818-L963"><code>HSLRORDB026.PCO:818-963</code></a> — add path: sequence, TENT_ASOC insert and error handling.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/cobol/HSLRORDB026.PCO#L1083-L1273"><code>HSLRORDB026.PCO:1083-1273</code></a> — remove path: select current row, stamp superseded row, insert ended row.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/inc/HSLRORDB026.CPB"><code>HSLRORDB026.CPB</code></a> — query-type flags and I/O input/output contract.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/inc/TENT_ASOC.CPY"><code>TENT_ASOC.CPY</code></a> — Oracle column, COBOL structure, and null indicator declaration for entity associations.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/inc/TPERS_ORG_RELTN.CPY"><code>TPERS_ORG_RELTN.CPY</code></a> — person-to-organization relationship contract with both ID/sequence pairs.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/cobol/HSLRGBDB001.PCO#L149-L168"><code>HSLRGBDB001.PCO:149-168</code></a> — DB action routing for connect/disconnect/commit/rollback/timestamp.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/cobol/HSLRGBDB001.PCO#L270-L320"><code>HSLRGBDB001.PCO:270-320</code></a> — Oracle commit and rollback implementation.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/cobol/transaction/lars_ux_cobol_trans.mk"><code>lars_ux_cobol_trans.mk</code></a> — explicit list of interactive transaction programs compiled.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/sqr/src/lars_ux_sqr.mk"><code>lars_ux_sqr.mk</code></a> — SQR source list and Oracle/Sybase DB connection target selection.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/blob/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/scripts/lars_vars.ksh"><code>lars_vars.ksh</code></a> — environment matrix; references password files but their values are not reproduced.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/tree/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/database"><code>LARS_UX/database/{ddl,sql,data}</code></a> — schema deployment/change scripts and seed/load assets. Some scripts are destructive when run; review individually and never execute for analysis.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/tree/b83125c0961d221083e00211c03c174a9d154323/LARS_UX/inc"><code>LARS_UX/inc/*.CPB</code></a> — UI data-block and record layouts.</li>
+          <li><a href="https://github.com/JHDevOps/jh_lars/tree/b83125c0961d221083e00211c03c174a9d154323/LARS_SHARED/inc"><code>LARS_SHARED/inc/*.CPY</code></a> — table declarations, COBOL layouts and SQL null indicators.</li>
+        </ul>
+      </section>
+
+      <section id="references"><div class="kicker">14 · References &amp; validation ledger</div><h2>What each claim is grounded in</h2>
+        <table><thead><tr><th>Reference type</th><th>What it supports</th><th>Location / validation</th></tr></thead><tbody>
+          <tr><td>Repository source</td><td>AAI controller request order, connection lifetime, security inputs/outputs, dynamic dispatch and response callback.</td><td>Commit-pinned GitHub links above to <code>HSLRSYSC.CBL</code>, especially the line ranges 276–318, 364–439, 448–588, 611–637.</td></tr>
+          <tr><td>UX transaction source</td><td>Reporting-affiliation screen load/show/add/delete route, association component arguments, status messages and commit/rollback request.</td><td>Commit-pinned <code>HSLRRPTS007.CBL</code> anchors above.</td></tr>
+          <tr><td>Shared DB component source</td><td><code>TENT_ASOC</code> cursor predicates, active duplicate validation, insert path, remove/history semantics and change-log calls.</td><td>Commit-pinned <code>HSLRORDB026.PCO</code> anchors above.</td></tr>
+          <tr><td>Oracle record contracts</td><td>Table column names, ID/sequence pairs, nullability assumptions in COBOL host structures and separate TENT_ASOC association shape.</td><td>Commit-pinned <code>TENT_ASOC.CPY</code>, <code>TPERS_ORG_RELTN.CPY</code>, <code>TPARTY.CPY</code>, <code>TPERS.CPY</code>, <code>TORG_UNIT.CPY</code>, license/appointment copybooks.</td></tr>
+          <tr><td>TEST session identity</td><td>Read-only authenticated principal, Oracle service and server host used for live validation.</td><td>LRSS02 <code>SYS_CONTEXT('USERENV','SESSION_USER')</code>, <code>SERVICE_NAME</code>, and <code>SERVER_HOST</code>; returned LARS_ESB / LRSS02 / clbs37617.</td></tr>
+          <tr><td>TEST catalog inventory</td><td>Existence of 11 selected LARS_OWNER tables; key/business column types and nullability.</td><td><code>ALL_TABLES</code> / <code>ALL_TAB_COLUMNS</code> read. LARS_ESB exposed TPARTY and TAGY_PRDCR_CD only; broad catalog fallback used JHDIGITALENGINEERING due to that access boundary.</td></tr>
+          <tr><td>Approximate table sizes</td><td>Scale context only.</td><td><code>ALL_TABLES.NUM_ROWS</code> and <code>LAST_ANALYZED</code>; stale optimizer stats are not exact counts.</td></tr>
+          <tr><td>Repository test inventory</td><td>SmokeTest XMLs exist; no checked-in test cases under SanityTest/RegressionTest.</td><td>Paths <code>QA/SmokeTest</code>, <code>QA/SanityTest</code>, <code>QA/RegressionTest</code>; smoke XML credentials intentionally omitted.</td></tr>
+        </tbody></table>
+        <h3>Read-only SQL shape used for repeatable TEST catalog verification</h3>
+        <pre>-- Run only against approved non-production LRSS02; no row data needed.
+SELECT table_name, column_name, data_type, nullable
+FROM all_tab_columns
+WHERE owner = 'LARS_OWNER'
+  AND table_name IN ('TPARTY', 'TPERS', 'TORG_UNIT', 'TPERS_ORG_RELTN',
+                     'TINS_LIC', 'TINS_LIC_LN_OF_AUTH', 'TAPNT',
+                     'TAPNT_LN_OF_AUTH', 'TENT_ASOC')
+  AND column_name IN ('PARTY_ID_NO', 'PARTY_ID_SEQ_NO', 'PERS_ID_NO',
+                      'PERS_ID_SEQ_NO', 'ORG_UNIT_ID_NO',
+                      'ORG_UNIT_ID_SEQ_NO', 'INS_LIC_ID_NO',
+                      'INS_LIC_ID_SEQ_NO', 'APNT_ID_NO',
+                      'APNT_ID_SEQ_NO', 'ENT_ASOC_ID_NO',
+                      'ENT_ASOC_ID_SEQ_NO')
+ORDER BY table_name, column_name;</pre>
+        <p class="small">The web reference links are pinned to source revision <code>b83125c0961d221083e00211c03c174a9d154323</code>; they remain stable if the default branch changes later.</p>
+      </section>
+
+      <section id="next"><div class="kicker">15 · Next investigations</div><h2>Useful follow-up slices</h2>
+        <ol><li><strong>Trace one real licensing screen:</strong> select the screenset copybook, map its service-program field to a transaction CBL in makefiles, follow the DB module call and the PL/SQL implementation, then confirm live table access on LRSS02.</li><li><strong>Map production table consumers:</strong> inventory table names referenced across UX COBOL/SQR and join to copybook declarations and TEST dictionary metadata.</li><li><strong>Review secret exposure:</strong> coordinate credential rotation before changing tracked config history; current values were intentionally not examined in chat or wiki.</li><li><strong>Record runtime parity:</strong> compare the current deployed STESTB configuration and LRSS02 host/service against checked-in environment files using an authorized operator source.</li><li><strong>Expand tests:</strong> identify whether ALM holds behavioral screen flows and determine how code changes are regression-tested on the enterprise build host.</li></ol>
+      </section>
+    </main>
+  </div>
+  <div class="footer">Generated from source inspection of <code>JHDevOps/jh_lars</code> at <code>b83125c</code> and read-only LARS TEST metadata on 2026-10-14. No database rows containing personal or firm identifiers were queried; no DML or source deployment scripts were run. <a href="#top">Back to top ↑</a></div>
+</body>
 </html>
